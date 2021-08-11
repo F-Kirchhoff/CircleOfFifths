@@ -1,7 +1,7 @@
 import { KEYMAP, KEYLABELS } from "./consts";
 
 const Key = props => {
-  const { keyIdx, keyColor, position, isWhite } = props;
+  const { keyIdx, keyColor, position, isWhite, intervalLabel,intervalColor } = props;
 
   const label = KEYLABELS["#"][keyIdx];
 
@@ -18,12 +18,20 @@ const Key = props => {
         top: "0",
         left: 10*position + "%",
         backgroundColor: keyColor,
+        color: intervalColor,
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        paddingBottom: "20px", 
         border: "solid 1px black",
         zIndex: "1",
         borderBottomLeftRadius: "4px",
         borderBottomRightRadius: "4px",
-      }}
-      /> :
+      }}> {intervalLabel}</div>
+      :
       <div
       style = {{
         width: "6%",
@@ -32,12 +40,19 @@ const Key = props => {
         top: "0",
         left: (10*position + blackKeyPositionModifier) + "%",
         backgroundColor: keyColor,
+        color: intervalColor,
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        paddingBottom: "10px", 
         border: "solid 1px black",
         zIndex: "2",
         borderBottomLeftRadius: "4px",
         borderBottomRightRadius: "4px",
-      }}
-    />;
+      }}> {intervalLabel}</div>;
 }
 
 const Keys = props => {
@@ -63,10 +78,14 @@ const Keys = props => {
       const isWhite = ! (keyLabel.includes("b") || keyLabel.includes("#"));
       const isInScale = keyIdx > 1 && scaleCounter < 8 && (keyLabel === model.scale[scaleCounter%7] || ( model.scale[scaleCounter%7] === "Cb" && keyLabel === "B")) ;
 
+      const interval = isInScale ? ["I","II","III","IV","V","VI","VII"][scaleCounter%7] : null;
+      
       if (!!isInScale) {scaleCounter++};
-
+      
       const keyColor = isInScale ? scaleColor : isWhite ? "white" : "black";
+      const intervalColor = keyData.secondary;
 
+      
       if (isWhite) {position++};
 
       return <Key 
@@ -75,6 +94,8 @@ const Keys = props => {
         position = {position - xShift - 1} 
         isWhite = {isWhite}
         keyColor = {keyColor}
+        intervalLabel = {interval}
+        intervalColor = {intervalColor}
       />
 
     })}

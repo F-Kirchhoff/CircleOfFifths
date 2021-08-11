@@ -1,4 +1,3 @@
-import { useRef, useEffect, useState } from "react";
 
 import { StaveDisplay } from "./VexFlowComponents";
 import ChordDisplay from "./ChordDisplay";

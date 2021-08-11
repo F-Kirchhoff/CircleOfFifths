@@ -1,5 +1,4 @@
 
-import { useEffect, useRef, useState } from "react";
 import { KEYMAP, INTERVALS,MODEINDEX } from "./consts";
 import { KeySignature } from "./VexFlowComponents";
 
